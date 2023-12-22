@@ -52,7 +52,14 @@ class MultiBarcodePlugin: NXPlugin {
                 switch serviceId {
                 case "scan" :
                     guard let paramDict = params["param"] as? [String: Any] else { return }
-                    grantCameraPermission(with:paramDict)
+                    
+                    isGrantCameraPermission(completion: { [weak self]granted in
+                        if granted {
+                            print("카메라 권한 획득 완료")
+                        } else {
+                            self?.showCameraPermissionUIAlert()
+                        }
+                    })
                     
                 default : self.sendEx(reason1: CODE_ERROR,
                                       eventID: NexacroPluginConst.ONCALLBACK.rawValue,
@@ -68,21 +75,20 @@ class MultiBarcodePlugin: NXPlugin {
         }
     }
     
-    func grantCameraPermission(with dic: [String: Any]) {
+    func isGrantCameraPermission(completion: @escaping (Bool) -> Void) {
         AVCaptureDevice.requestAccess(for: AVMediaType.video) { granted in
             if granted {
                 DispatchQueue.main.async {
-                    //self.startScan(dic)
-                    
-                    print("granted!!!!!")
+                    completion(true)
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.showCameraPermissionUIAlert()
+                    completion(false)
                 }
             }
         }
     }
+
     
     func showCameraPermissionUIAlert() {
         
