@@ -7,8 +7,8 @@ class AppDelegate: NXAppDelegate {
         // Override point for customization after application launch.
         viewController = ViewController()
         
-        viewController.projectUrl = "http://smart.tobesoft.co.kr/techService/NexacroN/98_NexacroNV24Test/"
-        viewController.bootstrapUrl = "http://smart.tobesoft.co.kr/techService/NexacroN/98_NexacroNV24Test/start_ios.json"
+        viewController.projectUrl = "http://smart.tobesoft.co.kr/NexacroN/MultiQRBarcodePlugin/_ios_/"
+        viewController.bootstrapUrl = "http://smart.tobesoft.co.kr/NexacroN/MultiQRBarcodePlugin/_ios_/start_ios.json"
         
 //        viewController.projectUrl = "http://smart.tobesoft.co.kr/techService/NexacroN/97_HelloSwift/"
 //        viewController.bootstrapUrl = "http://smart.tobesoft.co.kr/techService/NexacroN/97_HelloSwift/start_ios.json"

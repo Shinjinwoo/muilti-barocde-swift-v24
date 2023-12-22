@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E045E5B2B32C24B0004CCBA /* Hello.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E045E5A2B32C24B0004CCBA /* Hello.swift */; };
 		5E37A3B82B3191F800566365 /* nexacro.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E37A3B62B3191D400566365 /* nexacro.xcframework */; };
 		5E37A3B92B3191F800566365 /* nexacro.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E37A3B62B3191D400566365 /* nexacro.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5E4C02732B35195100F1430E /* MultiBarcodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */; };
@@ -15,7 +14,6 @@
 		61450DDD2B303DD200C05AA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61450DDC2B303DD200C05AA0 /* ViewController.swift */; };
 		61450DE22B303DD500C05AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61450DE12B303DD500C05AA0 /* Assets.xcassets */; };
 		61450DE52B303DD500C05AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61450DE32B303DD500C05AA0 /* LaunchScreen.storyboard */; };
-		61450E252B30418000C05AA0 /* SamplePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61450E242B30418000C05AA0 /* SamplePlugin.swift */; };
 		61450E2C2B30457800C05AA0 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 61450E2B2B30457800C05AA0 /* data */; };
 		61450E612B31558C00C05AA0 /* splashimage_pad_portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 61450E5D2B31558C00C05AA0 /* splashimage_pad_portrait.png */; };
 		61450E622B31558C00C05AA0 /* splashimage_phone_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 61450E5E2B31558C00C05AA0 /* splashimage_phone_landscape.png */; };
@@ -38,7 +36,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5E045E5A2B32C24B0004CCBA /* Hello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hello.swift; sourceTree = "<group>"; };
 		5E37A3B62B3191D400566365 /* nexacro.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nexacro.xcframework; sourceTree = "<group>"; };
 		5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBarcodePlugin.swift; sourceTree = "<group>"; };
 		61450DD52B303DD200C05AA0 /* v24swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v24swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,7 +45,6 @@
 		61450DE42B303DD500C05AA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61450DE62B303DD500C05AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61450E222B303EA800C05AA0 /* Nexacro-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nexacro-Bridging-Header.h"; sourceTree = "<group>"; };
-		61450E242B30418000C05AA0 /* SamplePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePlugin.swift; sourceTree = "<group>"; };
 		61450E2B2B30457800C05AA0 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
 		61450E5D2B31558C00C05AA0 /* splashimage_pad_portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashimage_pad_portrait.png; sourceTree = "<group>"; };
 		61450E5E2B31558C00C05AA0 /* splashimage_phone_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashimage_phone_landscape.png; sourceTree = "<group>"; };
@@ -112,8 +108,6 @@
 		61450E232B30416B00C05AA0 /* plugin */ = {
 			isa = PBXGroup;
 			children = (
-				5E045E5A2B32C24B0004CCBA /* Hello.swift */,
-				61450E242B30418000C05AA0 /* SamplePlugin.swift */,
 				5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */,
 			);
 			path = plugin;
@@ -208,8 +202,6 @@
 			files = (
 				61450DDD2B303DD200C05AA0 /* ViewController.swift in Sources */,
 				5E4C02732B35195100F1430E /* MultiBarcodePlugin.swift in Sources */,
-				61450E252B30418000C05AA0 /* SamplePlugin.swift in Sources */,
-				5E045E5B2B32C24B0004CCBA /* Hello.swift in Sources */,
 				61450DD92B303DD200C05AA0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
