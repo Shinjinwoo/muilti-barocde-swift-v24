@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 
 enum NexacroPluginConst: String {
@@ -24,13 +25,12 @@ class MultiBarcodePlugin: NXPlugin {
     private let CODE_ERROR = -1
     private let CODE_PERMISSION_ERROR = -9
     
-    private var callbackId = 0
-    
+    private var callbackId:Int?
+    private var serviceId:String?
     
     @objc
     override func pluginInitialize() {
         super.pluginInitialize()
-        
     }
     
     
@@ -47,32 +47,65 @@ class MultiBarcodePlugin: NXPlugin {
             if let serviceIDValue = swiftDictionary["serviceid"] as? String {
                 print("ServiceID: \(serviceIDValue)")
                 
-                switch serviceIDValue {
-                case "TestNativeService" :
-                    self.sendEx(reason1: CODE_SUCCES,
-                                eventID: NexacroPluginConst.ONCALLBACK.rawValue,
-                                serviceID: serviceIDValue,
-                                andMsg: "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)")
+                self.serviceId = serviceIDValue
+                
+                switch serviceId {
+                case "scan" :
+                    guard let paramDict = params["param"] as? [String: Any] else { return }
+                    grantCameraPermission(with:paramDict)
                     
-                case "TestService" :
-                    if let paramDict = params["param"] as? [String: Any],
-                       let sValue = paramDict["sValue"] as? String {
-                        print("Inner Value: \(sValue)")
-                        
-                        let param: [String:String] = ["test":"test"]
-                        
-                        self.sendEx(reason1: CODE_SUCCES,
-                                    eventID: NexacroPluginConst.ONCALLBACK.rawValue,
-                                    serviceID: serviceIDValue,
-                                    andMsg: param)
-                    }
-                default : break;
+                default : self.sendEx(reason1: CODE_ERROR,
+                                      eventID: NexacroPluginConst.ONCALLBACK.rawValue,
+                                      serviceID: "",
+                                      andMsg: "MultiBarcodePlugin: \(serviceIDValue) is Undefine Service ID")
                 }
             } else {
                 self.sendEx(reason1: CODE_ERROR,
                             eventID: NexacroPluginConst.ONCALLBACK.rawValue,
                             serviceID: "",
-                            andMsg: "svcid is null")
+                            andMsg: "MultiBarcodePlugin: Undefine ServiceId")
+            }
+        }
+    }
+    
+    func grantCameraPermission(with dic: [String: Any]) {
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { granted in
+            if granted {
+                DispatchQueue.main.async {
+                    //self.startScan(dic)
+                    
+                    print("granted!!!!!")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.showCameraPermissionUIAlert()
+                }
+            }
+        }
+    }
+    
+    func showCameraPermissionUIAlert() {
+        
+        let alert = UIAlertController(  title: "카메라 권한", message: "바코드 스캐닝을 위해 설정에서 \n카메라 권한을 허용해주세요.", preferredStyle: .alert )
+        let okButton = UIAlertAction( title: "OK", style: .default, handler: { _ in } )
+        let sysConfigButton = UIAlertAction( title: "설정", style: .default, handler: { _ in self.systemConfigView() } )
+        
+        alert.addAction(okButton)
+        alert.addAction(sysConfigButton)
+        
+        // Assuming `rootViewController` is the reference to your root view controller
+        self.viewController.present(alert, animated: true, completion: nil)
+    }
+    
+    func systemConfigView() {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(settingsURL, options: [:]) { success in
+                if !success {
+                    print("openURL: \(UIApplication.openSettingsURLString) Failed")
+                    self.sendEx(reason1: self.CODE_ERROR, eventID: NexacroPluginConst.ONCALLBACK.rawValue,
+                                serviceID: self.serviceId!,
+                                andMsg: "openURL: \(UIApplication.openSettingsURLString) Failed")
+                }
             }
         }
     }
@@ -87,13 +120,13 @@ class MultiBarcodePlugin: NXPlugin {
             mdic[NexacroPluginConst.RETVAL.rawValue] = returnValue
         }
         
-        let pluginResult = NXPluginResult(callbackId: self.callbackId,
+        let pluginResult = NXPluginResult(callbackId: self.callbackId!,
                                           eventName: eventID,
                                           parameters: mdic)
         
         self.nxCommandDelegate.send(pluginResult)
     }
-
+    
     func sendEx(reason1: Int, eventID: String, serviceID svcId: String, andMsg retval: String?) {
         var mdic = [String: Any]()
         
@@ -103,11 +136,11 @@ class MultiBarcodePlugin: NXPlugin {
         let returnValue = retval ?? "" // nil인 경우 빈 문자열로 대체
         mdic[NexacroPluginConst.RETVAL.rawValue] = returnValue
         
-        let pluginResult = NXPluginResult(callbackId: self.callbackId,
+        let pluginResult = NXPluginResult(callbackId: self.callbackId!,
                                           eventName: eventID,
                                           parameters: mdic)
         
         self.nxCommandDelegate.send(pluginResult)
     }
-
+    
 }
