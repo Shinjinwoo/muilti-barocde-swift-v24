@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin-config>
+    <plugin name="SamplePlugin" class="v24swift.SamplePlugin" onload="false"/>
+    <plugin name="HelloPlugin" class="v24swift.Hello" onload="false"/>
+</plugin-config>
