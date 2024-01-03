@@ -6,6 +6,17 @@
 //
 
 import UIKit
+enum Constant {
+    static let CODE_SUCCES = 0
+    static let CODE_ERROR = -1
+    static let CODE_PERMISSION_ERROR = -9
+    
+    static let NEXA_FORMAT_ALL = 0;
+    static let MLKIT_FORMAT_ALL = 0xFFFF;
+    
+    static let sessionQueueLabel = "com.google.mlkit.visiondetector.SessionQueue"
+    static let videoDataOutputQueueLabel = "com.google.mlkit.visiondetector.VideoDataOutputQueue"
+}
 
 class MultiBarcodeViewController: UIViewController {
     

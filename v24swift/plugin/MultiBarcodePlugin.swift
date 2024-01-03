@@ -22,15 +22,9 @@ enum NexacroPluginConst: String {
 @objc
 class MultiBarcodePlugin: NXPlugin {
     
-    private let CODE_SUCCES = 0
-    private let CODE_ERROR = -1
-    private let CODE_PERMISSION_ERROR = -9
     
     private var callbackId:Int?
     private var serviceId:String?
-    
-    private let NEXA_FORMAT_ALL = 0;
-    private let MLKIT_FORMAT_ALL = 0xFFFF;
     
     @objc
     override func pluginInitialize() {
@@ -63,7 +57,7 @@ class MultiBarcodePlugin: NXPlugin {
                     }
                 })
                 
-            default : self.sendEx(reason1: CODE_ERROR,
+            default : self.sendEx(reason1: Constant.CODE_ERROR,
                                   eventID: NexacroPluginConst.ONCALLBACK.rawValue,
                                   serviceID: "",
                                   andMsg: "MultiBarcodePlugin: \(serviceIDValue) is Undefine Service ID")
@@ -126,7 +120,7 @@ class MultiBarcodePlugin: NXPlugin {
         if let barcodeFormat = dic["scanFormat"] {
             multiBarcodeVC.barcodeFormat = getSacnFormat(setBarcodeFormat:barcodeFormat as! [Any] )
         } else {
-            multiBarcodeVC.barcodeFormat  = MLKIT_FORMAT_ALL
+            multiBarcodeVC.barcodeFormat  = Constant.MLKIT_FORMAT_ALL
         }
         
         
@@ -141,8 +135,8 @@ class MultiBarcodePlugin: NXPlugin {
     func getSacnFormat(setBarcodeFormat: [Any]) -> Int {
         var result = setBarcodeFormat[0] as! Int
         for i in 0..<setBarcodeFormat.count {
-            if setBarcodeFormat[i] as! Int == NEXA_FORMAT_ALL {
-                result |= MLKIT_FORMAT_ALL
+            if setBarcodeFormat[i] as! Int == Constant.NEXA_FORMAT_ALL {
+                result |= Constant.MLKIT_FORMAT_ALL
             }
             result |= setBarcodeFormat[i] as! Int
         }
@@ -182,7 +176,7 @@ class MultiBarcodePlugin: NXPlugin {
             UIApplication.shared.open(settingsURL, options: [:]) { success in
                 if !success {
                     print("openURL: \(UIApplication.openSettingsURLString) Failed")
-                    self.sendEx(reason1: self.CODE_ERROR, eventID: NexacroPluginConst.ONCALLBACK.rawValue,
+                    self.sendEx(reason1: Constant.CODE_ERROR, eventID: NexacroPluginConst.ONCALLBACK.rawValue,
                                 serviceID: self.serviceId!,
                                 andMsg: "openURL: \(UIApplication.openSettingsURLString) Failed")
                 }
