@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MultiBarcodeViewController" customModule="v24swift" customModuleProvider="target">
             <connections>
+                <outlet property="cameraView" destination="X8L-Vp-CDw" id="eey-JJ-SmW"/>
                 <outlet property="view" destination="68e-tA-doT" id="a5N-QQ-SJ8"/>
             </connections>
         </placeholder>

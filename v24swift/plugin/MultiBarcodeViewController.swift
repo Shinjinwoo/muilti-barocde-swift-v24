@@ -21,7 +21,7 @@ enum Constant {
 class MultiBarcodeViewController: UIViewController {
     
     @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var cemeraView: UIView!
+    @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var captureBtn: UIButton!
     
     var isUseFrontCamera: Bool?
