@@ -13,6 +13,7 @@
 		5E37A3B92B3191F800566365 /* nexacro.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E37A3B62B3191D400566365 /* nexacro.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5E4C02732B35195100F1430E /* MultiBarcodePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */; };
 		5E4C02762B3547FC00F1430E /* MultiBarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C02742B3547FC00F1430E /* MultiBarcodeViewController.swift */; };
+		5EF103942B453B8D006D4B1F /* UIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF103932B453B8D006D4B1F /* UIUtilities.swift */; };
 		61450DD92B303DD200C05AA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61450DD82B303DD200C05AA0 /* AppDelegate.swift */; };
 		61450DDD2B303DD200C05AA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61450DDC2B303DD200C05AA0 /* ViewController.swift */; };
 		61450DE22B303DD500C05AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61450DE12B303DD500C05AA0 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		5E37A3B62B3191D400566365 /* nexacro.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nexacro.xcframework; sourceTree = "<group>"; };
 		5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBarcodePlugin.swift; sourceTree = "<group>"; };
 		5E4C02742B3547FC00F1430E /* MultiBarcodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBarcodeViewController.swift; sourceTree = "<group>"; };
+		5EF103932B453B8D006D4B1F /* UIUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIUtilities.swift; sourceTree = "<group>"; };
 		61450DD52B303DD200C05AA0 /* v24swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v24swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61450DD82B303DD200C05AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61450DDC2B303DD200C05AA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				5E1630522B43E516009ED2F8 /* MultiBarcodeViewController.xib */,
 				5E4C02722B35195100F1430E /* MultiBarcodePlugin.swift */,
 				5E4C02742B3547FC00F1430E /* MultiBarcodeViewController.swift */,
+				5EF103932B453B8D006D4B1F /* UIUtilities.swift */,
 			);
 			path = plugin;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				5E4C02732B35195100F1430E /* MultiBarcodePlugin.swift in Sources */,
 				5E4C02762B3547FC00F1430E /* MultiBarcodeViewController.swift in Sources */,
 				61450DD92B303DD200C05AA0 /* AppDelegate.swift in Sources */,
+				5EF103942B453B8D006D4B1F /* UIUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
