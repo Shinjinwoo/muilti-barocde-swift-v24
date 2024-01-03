@@ -13,8 +13,9 @@ enum NexacroPluginConst: String {
     case SVCID = "svcid"
     case REASON = "reason"
     case RETVAL = "returnvalue"
-    
     case ONCALLBACK = "_oncallback"
+    case NEXA_FORMAT_ALL
+    case MLKIT_FORMAT_ALL
 }
 
 
@@ -28,6 +29,9 @@ class MultiBarcodePlugin: NXPlugin {
     private var callbackId:Int?
     private var serviceId:String?
     
+    private let NEXA_FORMAT_ALL = 0;
+    private let MLKIT_FORMAT_ALL = 0xFFFF;
+    
     @objc
     override func pluginInitialize() {
         super.pluginInitialize()
@@ -39,40 +43,110 @@ class MultiBarcodePlugin: NXPlugin {
      */
     
     @objc
-    func callMethod(_ id:NSString,withDict params:NSMutableDictionary) {
+    func callMethod(_ id:NSString,withDict params:Dictionary<String,Any>) {
         
         callbackId = id.integerValue
         
-        if let swiftDictionary = params as? [String: Any] {
-            if let serviceIDValue = swiftDictionary["serviceid"] as? String {
-                print("ServiceID: \(serviceIDValue)")
+        if let serviceIDValue = params["serviceid"] as? String {
+            print("ServiceID: \(serviceIDValue)")
+            self.serviceId = serviceIDValue
+            
+            switch serviceId {
+            case "scan" :
+                guard let paramDict = params["param"] as? Dictionary<String,Any> else { return }
                 
-                self.serviceId = serviceIDValue
+                isGrantCameraPermission(completion: { [weak self]granted in
+                    if granted {
+                        self?.startScan(dic:paramDict)
+                    } else {
+                        self?.showCameraPermissionUIAlert()
+                    }
+                })
                 
-                switch serviceId {
-                case "scan" :
-                    guard let paramDict = params["param"] as? [String: Any] else { return }
-                    
-                    isGrantCameraPermission(completion: { [weak self]granted in
-                        if granted {
-                            print("카메라 권한 획득 완료")
-                        } else {
-                            self?.showCameraPermissionUIAlert()
-                        }
-                    })
-                    
-                default : self.sendEx(reason1: CODE_ERROR,
-                                      eventID: NexacroPluginConst.ONCALLBACK.rawValue,
-                                      serviceID: "",
-                                      andMsg: "MultiBarcodePlugin: \(serviceIDValue) is Undefine Service ID")
-                }
-            } else {
-                self.sendEx(reason1: CODE_ERROR,
-                            eventID: NexacroPluginConst.ONCALLBACK.rawValue,
-                            serviceID: "",
-                            andMsg: "MultiBarcodePlugin: Undefine ServiceId")
+            default : self.sendEx(reason1: CODE_ERROR,
+                                  eventID: NexacroPluginConst.ONCALLBACK.rawValue,
+                                  serviceID: "",
+                                  andMsg: "MultiBarcodePlugin: \(serviceIDValue) is Undefine Service ID")
+            }
+            
+        }
+    }
+    
+    func startScan(dic: Dictionary<String,Any>) {
+        
+        let multiBarcodeVC = MultiBarcodeViewController(nibName: "MultiBarcodeViewController", bundle: nil)
+        
+        if let cameraID = dic["cameraID"] as? String {
+            switch cameraID {
+            case "1" : multiBarcodeVC.isUseFrontCamera = true
+            default : multiBarcodeVC.isUseFrontCamera = false
             }
         }
+        
+        if let useTextLabel = dic["useTextLabel"] as? String {
+            switch useTextLabel {
+            case "true" : multiBarcodeVC.isUseTextLabel = true
+            default : multiBarcodeVC.isUseTextLabel = false
+            }
+        }
+        
+        if let useAutoCapture = dic["useAutoCapture"] as? String {
+            switch useAutoCapture {
+            case "true" : multiBarcodeVC.isUseAutoCapture = true
+            default : multiBarcodeVC.isUseAutoCapture = false
+            }
+        }
+        
+        if let useSound = dic["useSound"] as? String {
+            switch useSound {
+            case "true" : multiBarcodeVC.isUseSoundEffect = true
+            default : multiBarcodeVC.isUseSoundEffect = false
+            }
+        }
+        
+        if let useVibration = dic["useVibration"] as? String {
+            switch useVibration {
+            case "true" : multiBarcodeVC.isUseVibration = true
+            default : multiBarcodeVC.isUseVibration = false
+            }
+        }
+
+        if let zoomFactorValue = dic["zoomFactor"] as? NSString {
+            multiBarcodeVC.zoomFactor = CGFloat(zoomFactorValue.floatValue)
+        }
+        
+        if let limitTime = dic["limitTime"] as? NSString {
+            multiBarcodeVC.limitTime = CGFloat(limitTime.floatValue)
+        }
+        
+        if let limitCount = dic["limitCount"] as? String {
+            multiBarcodeVC.limitCount = Int(limitCount)
+        }
+
+        if let barcodeFormat = dic["scanFormat"] {
+            multiBarcodeVC.barcodeFormat = getSacnFormat(setBarcodeFormat:barcodeFormat as! [Any] )
+        } else {
+            multiBarcodeVC.barcodeFormat  = MLKIT_FORMAT_ALL
+        }
+        
+        
+        multiBarcodeVC.modalPresentationStyle = .fullScreen
+        
+        print(multiBarcodeVC)
+        self.viewController.present(multiBarcodeVC, animated: true, completion: nil)
+
+        
+    }
+    
+    func getSacnFormat(setBarcodeFormat: [Any]) -> Int {
+        var result = setBarcodeFormat[0] as! Int
+        for i in 0..<setBarcodeFormat.count {
+            if setBarcodeFormat[i] as! Int == NEXA_FORMAT_ALL {
+                result |= MLKIT_FORMAT_ALL
+            }
+            result |= setBarcodeFormat[i] as! Int
+        }
+        return result
     }
     
     func isGrantCameraPermission(completion: @escaping (Bool) -> Void) {
@@ -88,7 +162,7 @@ class MultiBarcodePlugin: NXPlugin {
             }
         }
     }
-
+    
     
     func showCameraPermissionUIAlert() {
         
@@ -150,3 +224,4 @@ class MultiBarcodePlugin: NXPlugin {
     }
     
 }
+
