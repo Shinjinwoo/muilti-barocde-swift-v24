@@ -72,8 +72,8 @@ class MultiBarcodePlugin: NXPlugin {
         
         if let cameraID = dic["cameraID"] as? String {
             switch cameraID {
-            case "1" : multiBarcodeVC.isUseFrontCamera = true
-            default : multiBarcodeVC.isUseFrontCamera = false
+            case "1" : multiBarcodeVC.isUseFrontCamera = false
+            default : multiBarcodeVC.isUseFrontCamera = true
             }
         }
         
